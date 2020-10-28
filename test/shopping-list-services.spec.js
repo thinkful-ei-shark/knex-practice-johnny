@@ -17,21 +17,24 @@ describe('Shopping List service object', () => {
       name: 'test 1',
       price: '20.20',
       date_added: new Date(),
-      category: 'Snack'
+      category: 'Snack',
+      checked: false
     },
     {
       id: 2,
       name: 'test 2',
       price: '20.30',
       date_added: new Date(),
-      category: 'Snack'
+      category: 'Snack',
+      checked: false
     },
     {
       id: 3,
       name: 'test 3',
       price: '20.44',
       date_added: new Date(),
-      category: 'Snack'
+      category: 'Snack',
+      checked: false
     }
   ];
   // ? before testing set db to be our knex config
@@ -82,6 +85,15 @@ describe('Shopping List service object', () => {
             category: secondTestItem.category,
             checked: false
           })
+        })
+    })
+    it('deleteItem() removes an item by id from shopping_list table', () => {
+      const itemId = 2;
+      return shoppingListService.deleteItem(db, itemId)
+        .then(() => shoppingListService.getAllLists(db))
+        .then(allItems => {
+          const expected = testLists.filter(item => item.id !== itemId)
+          expect(allItems).to.eql(expected);
         })
     })
 

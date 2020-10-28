@@ -11,6 +11,11 @@ const shoppingListService = {
   },
   getById(knex, id) {
     return knex.from('shopping_list').select('*').where('id', id).first();
+  },
+  deleteItem(knex, id) {
+    return knex('shopping_list')
+      .where({id})
+      .delete();
   }
 };
 
