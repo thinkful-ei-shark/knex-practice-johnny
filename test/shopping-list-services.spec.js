@@ -69,6 +69,21 @@ describe('Shopping List service object', () => {
           expect(actual).to.eql(expectedItems);
         })
     })
+    it('getById() resolves article by id from shopping_list table', () => {
+      const secondId = 2;
+      const secondTestItem = testLists[secondId - 1];
+      return shoppingListService.getById(db, secondId)
+        .then(actual => {
+          expect(actual).to.eql({
+            id: secondId,
+            name: secondTestItem.name,
+            price: secondTestItem.price,
+            date_added: secondTestItem.date_added,
+            category: secondTestItem.category,
+            checked: false
+          })
+        })
+    })
 
   });
   context('Given "shopping_list" does not have data', () => {
